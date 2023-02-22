@@ -70,7 +70,8 @@ if (isset($_POST["acc"])) {
             /** Searching message for date (message_date) */
         case "form_date":
 
-            $conexion = pg_connect("host=localhost dbname=<databasename> user=postgres password=<password>");                                                                        $date1 = date('Y-m-d H:i:s', strtotime($_POST['start_date']));
+            $conexion = pg_connect("host=localhost dbname=<databasename> user=postgres password=<password>");                                                                        
+            $date1 = date('Y-m-d H:i:s', strtotime($_POST['start_date']));
             $date2 = date('Y-m-d H:i:s', strtotime($_POST['end_date']));
             $query = "SELECT * FROM messages JOIN ticket ON messages.id = ticket.idm WHERE message_date BETWEEN '$date1'  AND '$date2' ";  
             $result = pg_query($conexion, $query);                                    
