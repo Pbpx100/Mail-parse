@@ -41,12 +41,12 @@ if (isset($_POST["acc"])) {
 
             $conexion = pg_connect("host=localhost dbname=<databasename> user=postgres password=<password>");
             $search_box_mail = $_POST['search_box_mail'];
-            $query = "SELECT * FROM messages JOIN ticket ON messages.id = ticket.idm WHERE message_from LIKE '%" . $search_box_mail . "%' ";   //*************seleccion de datos de la base de datos
-            $result = pg_query($conexion, $query);                                    //************* parametros de busqueda en la base de datos
+            $query = "SELECT * FROM messages JOIN ticket ON messages.id = ticket.idm WHERE message_from LIKE '%" . $search_box_mail . "%' ";  
+            $result = pg_query($conexion, $query);                                 
             $row_table = pg_num_rows($result);
             if ($row_table > 0) {
                 while ($data_msg = pg_fetch_array($result)) {
-                    $data_msg_ticket = $data_msg['idm'];                     // tomamos los datos en forma e array y ponemos los valores en la variable output
+                    $data_msg_ticket = $data_msg['idm'];                   
                     $output .= "<tr>
                                     <td>
                                         <button class='btn btn-primary' data-bs-toggle='modal' name='details_message' id='details_message' value='$data_msg_ticket' data-bs-target='#exampleModal'>" . $data_msg_ticket . "</button>
@@ -64,21 +64,20 @@ if (isset($_POST["acc"])) {
                 $output .= "Not data coincidence";
             }
             echo $output;
-            pg_close($conexion);                                                //************* cierre de conexion
+            pg_close($conexion);                                               
             break;
 
             /** Searching message for date (message_date) */
         case "form_date":
 
-            $conexion = pg_connect("host=localhost dbname=<databasename> user=postgres password=<password>");                                                            //************* caso search(valor del JS), busca y presenta los datos que le hemos pasado en el buscador
-            $date1 = date('Y-m-d H:i:s', strtotime($_POST['start_date']));
+            $conexion = pg_connect("host=localhost dbname=<databasename> user=postgres password=<password>");                                                                        $date1 = date('Y-m-d H:i:s', strtotime($_POST['start_date']));
             $date2 = date('Y-m-d H:i:s', strtotime($_POST['end_date']));
-            $query = "SELECT * FROM messages JOIN ticket ON messages.id = ticket.idm WHERE message_date BETWEEN '$date1'  AND '$date2' ";   //*************seleccion de datos de la base de datos
-            $result = pg_query($conexion, $query);                                    //************* parametros de busqueda en la base de datos
+            $query = "SELECT * FROM messages JOIN ticket ON messages.id = ticket.idm WHERE message_date BETWEEN '$date1'  AND '$date2' ";  
+            $result = pg_query($conexion, $query);                                    
             $row_table = pg_num_rows($result);
             if ($row_table > 0) {
                 while ($data_msg = pg_fetch_array($result)) {
-                    $data_msg_ticket = $data_msg['idm'];                       // tomamos los datos en forma e array y ponemos los valores en la variable output
+                    $data_msg_ticket = $data_msg['idm'];                       
                     $output .= "<tr>
                                     <td>
                                         <button class='btn btn-primary' data-bs-toggle='modal' name='details_message' id='details_message' value='$data_msg_ticket' data-bs-target='#exampleModal'>" . $data_msg_ticket . "</button>
@@ -96,19 +95,19 @@ if (isset($_POST["acc"])) {
                 $output .= 'Not messages in those dates';
             }
             echo $output;
-            pg_close($conexion);                                                //************* cierre de conexion
+            pg_close($conexion);                                                
             break;
 
             /** Showing message details with Bootstrap-Modal */
         case "message":
 
             $conexion = pg_connect("host=localhost dbname=<databasename> user=postgres password=<password>");
-            $query =   "SELECT * FROM  messages JOIN ticket ON messages.id = ticket.idm WHERE ticket.idm = " . $_POST['details_message'];                            //************* seleccion de datos
-            $result = pg_query($conexion, $query);                                       //************* parametros de busqueda en la base de datos
+            $query =   "SELECT * FROM  messages JOIN ticket ON messages.id = ticket.idm WHERE ticket.idm = " . $_POST['details_message'];                            
+            $result = pg_query($conexion, $query);                                       
             // echo pg_last_error($conexion);
             $row_table = pg_num_rows($result);
             if ($row_table > 0) {
-                while ($detalles_message = pg_fetch_array($result)) {                            //tomamos los datos en forma de array y ponemos los valores en la variable output
+                while ($detalles_message = pg_fetch_array($result)) {                           
                     $output .= "
                                 <div class='modal-body'>Mensaje de : " . $detalles_message['message_from'] . "
                                 <br>Mensaje a : " . $detalles_message['message_to'] . "</div>
@@ -217,8 +216,8 @@ include_once "header.php";
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid d-flex justify-content-center col-md-12">
             <form method="POST" name="search_form" id="search_form" class="d-flex" action="tabla_parse.php">
-                <input class="form-control me-2" name="search_box_mail" id="search_box" type="text"> <!-- ************* identificador search_box_mail, recupera la input_search que le pasamos al buscador-->
-                <button class="btn btn-outline-success" type="submit">Search</button> <!-- ************* idenficador search, le pasamos al JavaScript, para ejecutar la accion search al remitente -->
+                <input class="form-control me-2" name="search_box_mail" id="search_box" type="text"> 
+                <button class="btn btn-outline-success" type="submit">Search</button> 
             </form>
         </div>
     </nav>
