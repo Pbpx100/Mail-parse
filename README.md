@@ -1,6 +1,6 @@
 ## Goal of this project
 Show a part of my work and my domain of the differents libraries
-## GOOD functionnalitis of the project it's necessary to add more Bootstrap classes to the project
+GOOD functionalities of the project it's necessary to add more Bootstrap classes to the project
 
 
 ## Project Name Mail_parse
