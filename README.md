@@ -19,5 +19,3 @@ Ajax
 JQuery
 Bootstrap
 
-
-## If you want to use this project to parse emails you must create the tables and a trigger with a ticket idm
